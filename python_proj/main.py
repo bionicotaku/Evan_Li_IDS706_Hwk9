@@ -1,7 +1,6 @@
 from mylib import calculate_stat
 import time
 import psutil
-import io
 from contextlib import redirect_stdout
 
 
@@ -28,7 +27,7 @@ def main():
     # Redirect output to a file
     with open("../python_performance.md", "w") as f:
         with redirect_stdout(f):
-            print(f"# Performance Report\n")
+            print("# Performance Report\n")
             print(f"**Time taken:** {elapsed_time_micros:.2f} microseconds  ")
             print(f"**Memory used:** {memory_used:.2f} KB  \n")
             print("## Descriptive Statistics:")
