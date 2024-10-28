@@ -1,45 +1,66 @@
+# Data Analysis Performance Comparison: Python vs Rust
+
 [![Python CI/CD Pipeline](https://github.com/bionicotaku/Evan_Li_IDS706_Hwk9/actions/workflows/pythonCI.yml/badge.svg)](https://github.com/bionicotaku/Evan_Li_IDS706_Hwk9/actions/workflows/pythonCI.yml)
 [![Rust CI/CD Pipeline](https://github.com/bionicotaku/Evan_Li_IDS706_Hwk9/actions/workflows/rustCI.yml/badge.svg)](https://github.com/bionicotaku/Evan_Li_IDS706_Hwk9/actions/workflows/rustCI.yml)
-# Jeremy Tan IDS706 Week 8 
-The project is a command-line interface (CLI) tool implemented in both Rust and Python for encrypting and decrypting messages using the AES-256 CBC PKCS#7 encryption algorithm. It supports two modes: encryption and decryption.
 
-## Rust Implementation:
-The Rust version uses the aes_cbc crate for encryption and decryption. It employs the clap library for parsing command-line arguments. The CLI takes input for mode (encrypt or decrypt), the message to be encrypted or decrypted, and optional arguments for the encryption key and initialization vector (IV). It measures and logs the elapsed time for the operation and appends this information to a Markdown file.
+This project implements identical data analysis tasks in both Python and Rust, utilizing the Polars library for data processing. The analysis is performed on the Data Engineer Salary 2024 dataset, with performance metrics tracked for both implementations.
 
-### Preparation and Dependency Installation: 
-1. open codespaces 
-2. wait for codespaces to be built 
-3. build: `cargo build` for dependencies installation
-4. run: `cargo run --  --message "Off to the bunker. Every person for themselves" --encrypt` or use your own string
+## Dataset
 
-### Check Format and Test Erros: 
-1. Format code `make format`
-2. Lint code `make lint`
-3. Test coce `make test`
+The data is sourced from [Kaggle's Data Engineer Salary in 2024 dataset](https://www.kaggle.com/datasets/chopper53/data-engineer-salary-in-2024), containing information about:
+- Salary
+- Job title
+- Experience level
+- Employment type
+- Employee residence
+- Remote work ratio
+- Company location
+- Company size
 
-## Python Implementation:
-The Python version features a similar CLI, utilizing the argparse module for argument parsing. It also offers options for mode, input text, and optional key and IV in base64 format. The CLI measures execution time, logs it, and displays the encrypted or decrypted message along with the elapsed time.
+## Analysis Features
 
+Both implementations perform the following analyses:
+1. Top 20 Job Titles Distribution
+2. Experience Level Distribution
+3. Salary Statistics by Experience Level
 
-### Preparation: 
-1. git clone the repo
-2. install: `make python_install`
-3. run: `python main.py encrypt "Hello World"` or use your own string   
+## Python Implementation
 
-### Check Format and Test Errors: 
-1. Format code `make python_format`
-2. Lint code `make python_lint`
-3. Test coce `make python_test`
+### Setup and Running
+1. Install dependencies: `make python_install`
+2. Run analysis: `python python_proj/main.py`
+3. Check code quality:
+   - Format: `make python_format`
+   - Lint: `make python_lint`
+   - Test: `make python_test`
 
-## Speed and Resource Usage:
-[Link to Rust runtime Markdown File](https://github.com/nogibjj/Jeremy_Tan_IDS706_Week8/blob/main/rust_times.md)
-[Link to Python runtime Markdown File](https://github.com/nogibjj/Jeremy_Tan_IDS706_Week8/blob/main/python_times.md)
+## Rust Implementation
 
-You can view how long it takes to encrypt and decrypt the same messages above. Based on the speed, it's obvious Rust run on average 400 times faster than Python and we can infer why the resource usage is vastly smaller than Python. Rust outperforms Python in speed primarily due to its static typing, zero-cost abstractions, and absence of a Global Interpreter Lock (GIL). Rust's strict typing allows for more efficient compilation, while its ownership system enables high-performance abstractions without sacrificing safety. Additionally, Rust manages memory directly, avoiding the overhead of Python's garbage collector. The language also offers fine-grained control over memory, enabling low-level optimizations. These factors, combined with an optimized compiler and a performance-centric standard library, contribute to Rust's reputation for speed.
+### Setup and Running
+1. Install dependencies: `make rust_install`
+2. Run analysis: `cargo run`
+3. Check code quality:
+   - Format: `make rust_format`
+   - Lint: `make rust_lint`
+   - Test: `make rust_test`
 
-I also track the memory used in Rust and Python in the markdown files above. We can see that Rust barely uses memory whereas Python requires mb of memory for the same encryption and decryption to run.
+## Performance Comparison
 
-## References
-* [rust-cli-template](https://github.com/kbknapp/rust-cli-template)
-* https://github.com/DaGenix/rust-crypto/
-* https://github.com/nogibjj/rust-data-engineering
+Performance metrics are automatically generated and saved to markdown files through GitHub Actions:
+- [Python Performance Results](python_performance.md)
+- [Rust Performance Results](rust_performance.md)
+
+### Key Findings
+Our analysis reveals that while the Rust implementation shows significantly lower memory consumption, the execution time improvement wasn't as dramatic as we'd typically expect. This interesting outcome might be attributed to several factors:
+
+1. Differences in how the Polars library is implemented in Python versus Rust
+2. Potential optimization opportunities in our Rust code due to limited expertise
+3. The specific nature of our data processing tasks might not fully showcase Rust's performance advantages
+
+## CI/CD Pipeline
+Both implementations include automated CI/CD pipelines that:
+- Run tests
+- Check code formatting
+- Perform linting
+- Generate performance metrics
+- Push results to the repository

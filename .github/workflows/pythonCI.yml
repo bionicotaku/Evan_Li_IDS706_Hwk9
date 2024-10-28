@@ -25,6 +25,8 @@ jobs:
         run: make python_test
       - name: Format code
         run: make python_format
+      - name: Run code
+        run: make python_run
       - name: Pull Repository
         run: git pull
       - name: Generate and push changes
