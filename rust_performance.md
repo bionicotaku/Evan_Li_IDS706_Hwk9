@@ -1,7 +1,7 @@
 # Analysis Results
 
 ## Time and Memory Usage
-- Time taken: 36999 microseconds
+- Time taken: 38708 microseconds
 - Memory used: 0 KB
 
 ## Descriptive Statistics
